@@ -4,6 +4,6 @@ dealer: dealer.o
 dealer.o: dealer.cpp
 	g++ -c dealer.cpp
 hand: hand.o
-	g++ -o hand hand.o
+	g++ -L/home/010/j/jc/jca160030/src/lib -o hand  hand.o -lgsl -lgslcblas -lm
 hand.o: hand.cpp
-	g++ -c hand.cpp
+	g++ -Wall -I/home/010/j/jc/jca160030/src/include -c hand.cpp
