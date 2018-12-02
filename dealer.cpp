@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 using namespace std;
 
@@ -31,7 +33,24 @@ int main(int argc, char *argv[]){
     exit(EXIT_FAILURE);
   }
 
-  cout << percentage << endl << number_of_trials << endl;
-  if (verbose == true)
-    cout << "v" << endl;
+  for (int i = 0; i < number_of_trials; i++){
+    pid_t pid = fork();
+    int status;
+    if (pid == -1){
+      //failure
+      cerr << "fork failed" << endl;
+      exit(EXIT_FAILURE);
+    }
+    else if (pid == 0){
+      //child
+      execvp("./hand",argv);
+      cerr << "exec failed" << endl;
+      exit(0);
+    }
+    else{
+      //parent
+      pid = wait(&status);
+    }
+  }
+  
 }
