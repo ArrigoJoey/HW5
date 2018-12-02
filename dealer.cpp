@@ -49,7 +49,12 @@ int main(int argc, char *argv[]){
     }
     else{
       //parent
+      int success;
       pid = wait(&status);
+      if (WIFEXITED(status)){
+        success = WEXITSTATUS(status);	
+      }
+      cout << success << endl;
     }
   }
   
